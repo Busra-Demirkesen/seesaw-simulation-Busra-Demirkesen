@@ -64,6 +64,7 @@ seesawEl.addEventListener('click', (e) =>{
 
 
 let objects = [];
+let dropLogs = [];
 
 function randomWeight() {
     return Math.floor(Math.random() * 10) + 1;
@@ -75,7 +76,7 @@ function sizeForWeight(w){
 
 function colorForWeight(w){
     const hue = 120 - (w-1) * (120/9);
-    return `hsl(${hue}, 70% ,%45)`;
+    return `hsl(${hue}, 70% ,45%)`;
 }
 
 function createObjectElement(object) {
@@ -251,6 +252,18 @@ function addLogEntry(weight, distanceFromPivot){
     logEl.removeChild(logEl.lastElementChild);
   }
 
+  dropLogs.unshift({
+  weight,
+  distanceFromPivot,
+  side: sideFromDistance(distanceFromPivot),
+  time: new Date().toISOString()
+});
+
+if (dropLogs.length > LOG_LIMIT) dropLogs.pop();
+
+
+saveState();
+
 }
 
 const STORAGE_KEY = 'seesaw_stage_v1';
@@ -261,7 +274,8 @@ function saveState(){
 
     const data = {
         objects,
-        angle
+        angle,
+        dropLogs
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -275,20 +289,43 @@ function loadStorage() {
 try {
     const data = JSON.parse(raw);
     if (Array.isArray(data.objects)) {
-      objects = data.objects;
-      
+      objects = data.objects;      
       objects.forEach(o => createObjectElement(o));
       updatePhysics(); 
       updateStatsUI && updateStatsUI();
     }
+
+    if(Array.isArray(data.dropLogs)){
+        dropLogs = data.dropLogs;
+        const logEl = document.getElementById('event-log');
+        if(logEl){
+            logEl.innerHTML = '';
+            dropLogs.forEach(l => {
+            const cm = formatDistanceCm(l.distanceFromPivot);
+            const side = sideFromDistance(l.distanceFromPivot);
+            const item = document.createElement('div');
+            item.className = 'log-item';
+            item.innerHTML = `
+            <span class="log-emoji">🧱</span>
+            <span class="log-weight">${l.weight}kg</span>
+            dropped on <span class="log-side">${side}</span> side
+            at <span class="log-distance">${cm}cm</span> from center
+          `;
+          logEl.appendChild(item);
+            });
+        }
+    }
+    
   } catch (err) {
     console.warn("Failed to parse stored state", err);
   }
 
-  function clearStorage(){
+ 
+}
+
+ function clearStorage(){
         localStorage.removeItem(STORAGE_KEY);
     }
-}
 
     
 
@@ -300,6 +337,7 @@ if(resetBtn){
 
 function resetSeesaw(){
     objects = [];
+    dropLogs = [];
 
    document.querySelectorAll('.object').forEach(el => el.parentNode.removeChild(el));
 
@@ -327,9 +365,10 @@ function resetSeesaw(){
     dropLogs:[]
   };
 
-  localStorage.setItem('seesawState', JSON.stringify(emptyState));
+
   
     updatePhysics();
     updateStatsUI && updateStatsUI();
+    updateTotals()
 
 }
