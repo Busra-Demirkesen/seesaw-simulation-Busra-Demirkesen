@@ -60,8 +60,4 @@ Projeyi yerel olarak çalıştırmak için şu adımları izleyin:
 
 
 
-Bu projenin temel yapısı ve mantığı tamamen tarafımdan geliştirilmiştir. Ancak, aşağıdaki küçük görevler için AI araçlarından (ChatGPT/Copilot) yardım alınmıştır:
 
-* **Refactoring:** Gereksiz UI bileşenlerinin ve fonksiyon çağrılarının kaldırılması (örn. `updateTotals()` fonksiyonu) ve bu kaldırma işleminden kaynaklanan hataların tespit edilmesi.
-* **Commit Mesajları:** Proje adımlarına uygun İngilizce ve Türkçe commit mesajlarının hazırlanması.
-* **<AI'ın Yardımcı Olduğu Diğer Kısımları Buraya Ekleyin.>**
