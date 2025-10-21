@@ -1,6 +1,7 @@
 
 window.addEventListener('load', () => {
   renderScaleLabels(100);
+  loadStorage();
 });
 
 
@@ -140,6 +141,7 @@ function addObject({ x, distanceFromPivot }) {
   updatePhysics();
   updateStatsUI();
   addLogEntry(weight, distanceFromPivot);
+  saveState()
 
 }
 
@@ -250,3 +252,41 @@ function addLogEntry(weight, distanceFromPivot){
   }
 
 }
+
+const STORAGE_KEY = 'seesaw_stage_v1';
+
+function saveState(){
+    const {leftTorque, rightTorque} = computeTorques();
+    const angle = computeAngle(leftTorque,rightTorque);
+
+    const data = {
+        objects,
+        angle
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+}
+
+function loadStorage() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+
+try {
+    const data = JSON.parse(raw);
+    if (Array.isArray(data.objects)) {
+      objects = data.objects;
+      
+      objects.forEach(o => createObjectElement(o));
+      updatePhysics(); 
+      updateStatsUI && updateStatsUI();
+    }
+  } catch (err) {
+    console.warn("Failed to parse stored state", err);
+  }
+}
+
+    function clearStorage(){
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
