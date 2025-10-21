@@ -4,8 +4,8 @@ Bu proje, kullanıcının tıklamalarıyla rastgele ağırlıktaki nesneleri bir
 
 ## 🚀 Proje Canlı Bağlantısı
 
-**ÖNEMLİ:** Lütfen bu linki GitHub Pages üzerinden yayınladıktan sonra güncelleyin.
-[Canlı Bağlantı Yok] (Örn: `https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/`)
+[**ÖNEMLİ:** Lütfen bu linki GitHub Pages üzerinden yayınladıktan sonra güncelleyin.
+[Canlı Bağlantı Yok] (Örn: `https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/`)](https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/)
 
 ## ✨ Özellikler
 
