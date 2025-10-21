@@ -68,13 +68,46 @@ function randomWeight() {
     return Math.floor(Math.random() * 10) + 1;
 }
 
+function sizeForWeight(w){
+    return 8+ w * 3;
+}
+
+function colorForWeight(w){
+    const hue = 120 - (w-1) * (120/9);
+    return `hsl(${hue}, 70% ,%45)`;
+}
+
 function createObjectElement(object) {
     const el = document.createElement('div');
-    el.className = 'object';
-    el.style.left = (object.x -6 ) + 'px';
-    el.style.bottom = '14px';
-    el.title = object.weight + ' kg';
-    seesawEl.appendChild(el);
+    const w= object.weight;
+    const size = sizeForWeight(w);
+
+      el.className = 'object';
+  el.style.width  = size + 'px';
+  el.style.height = size + 'px';
+
+
+  el.style.left   = (object.x - size / 2) + 'px';
+  el.style.bottom = '12px'; 
+
+  el.style.background = colorForWeight(w);
+  el.style.boxShadow  = `0 0 ${Math.max(4, size/4)}px rgba(0,0,0,0.25)`;
+
+  
+  el.textContent = w; 
+  el.style.display = 'flex';
+  el.style.alignItems = 'center';
+  el.style.justifyContent = 'center';
+  el.style.color = '#fff';
+  el.style.fontWeight = '700';
+  el.style.fontSize = Math.max(9, Math.floor(size / 2.8)) + 'px';
+  el.style.lineHeight = 1;
+
+  el.title = w + ' kg';
+  el.setAttribute('aria-label', w + ' kilograms');
+
+  el.style.pointerEvents = 'none';
+  seesawEl.appendChild(el);
 }
 
 function updateTotals(){
