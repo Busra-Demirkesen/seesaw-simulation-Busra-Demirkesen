@@ -316,7 +316,18 @@ function resetSeesaw(){
 
   const logEl = document.getElementById('event-log');
   if(logEl) logEl.innerHTML = '';
-  localStorage.removeItem('seesawState');
+  localStorage.removeItem(STORAGE_KEY);
+
+
+  const emptyState = {
+    objects: [],
+    leftWeight:0,
+    rightWeight:0,
+    angle:0,
+    dropLogs:[]
+  };
+
+  localStorage.setItem('seesawState', JSON.stringify(emptyState));
   
     updatePhysics();
     updateStatsUI && updateStatsUI();
