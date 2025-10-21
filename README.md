@@ -4,8 +4,8 @@ Bu proje, kullanıcının tıklamalarıyla rastgele ağırlıktaki nesneleri bir
 
 ## 🚀 Proje Canlı Bağlantısı
 
-**ÖNEMLİ:** Lütfen bu linki GitHub Pages üzerinden yayınladıktan sonra güncelleyin.
-[Canlı Bağlantı Yok] (Örn: `https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/`)
+https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/
+
 
 ## ✨ Özellikler
 
@@ -58,10 +58,6 @@ Projeyi yerel olarak çalıştırmak için şu adımları izleyin:
     ```
 3.  `index.html` dosyasını tarayıcınızda açın.
 
-## 🤖 AI Yardımı
 
-Bu projenin temel yapısı ve mantığı tamamen tarafımdan geliştirilmiştir. Ancak, aşağıdaki küçük görevler için AI araçlarından (ChatGPT/Copilot) yardım alınmıştır:
 
-* **Refactoring:** Gereksiz UI bileşenlerinin ve fonksiyon çağrılarının kaldırılması (örn. `updateTotals()` fonksiyonu) ve bu kaldırma işleminden kaynaklanan hataların tespit edilmesi.
-* **Commit Mesajları:** Proje adımlarına uygun İngilizce ve Türkçe commit mesajlarının hazırlanması.
-* **<AI'ın Yardımcı Olduğu Diğer Kısımları Buraya Ekleyin.>**
+
