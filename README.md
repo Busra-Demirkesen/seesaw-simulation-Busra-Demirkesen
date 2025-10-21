@@ -58,7 +58,7 @@ Projeyi yerel olarak çalıştırmak için şu adımları izleyin:
     ```
 3.  `index.html` dosyasını tarayıcınızda açın.
 
-## 🤖 AI Yardımı
+
 
 Bu projenin temel yapısı ve mantığı tamamen tarafımdan geliştirilmiştir. Ancak, aşağıdaki küçük görevler için AI araçlarından (ChatGPT/Copilot) yardım alınmıştır:
 
