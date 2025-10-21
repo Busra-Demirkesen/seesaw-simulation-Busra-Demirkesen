@@ -16,8 +16,7 @@ const angleCardEl = document.getElementById('angle-card');
 
 
 const seesawEl = document.querySelector('.seesaw');
-const leftTotalEl = document.getElementById('left-total');
-const rightTotalEl = document.getElementById('right-total');
+
 
 
 
@@ -40,7 +39,7 @@ function updateStatsUI(){
 }
 
 
-if(!seesawEl || !leftTotalEl || !rightTotalEl){
+if(!seesawEl){
     console.error('Required elements not found in DOM');
 }
 
@@ -112,18 +111,6 @@ function createObjectElement(object) {
   seesawEl.appendChild(el);
 }
 
-function updateTotals(){
-
-    let left= 0, right = 0;
-    for(const obj of objects) {
-        if(obj.distanceFromPivot < 0) left+= obj.weight;
-        else right += obj.weight;
-    }
-
-    leftTotalEl.textContent = left + ' kg';
-    rightTotalEl.textContent = right + ' kg';
-
-}
 
 
 function addObject({ x, distanceFromPivot }) {
@@ -138,7 +125,7 @@ function addObject({ x, distanceFromPivot }) {
 
   objects.push(object);
   createObjectElement(object);
-  updateTotals();
+
   updatePhysics();
   updateStatsUI();
   addLogEntry(weight, distanceFromPivot);
@@ -182,7 +169,7 @@ function updatePhysics() {
   applyAngle(angle);
 }
 
-updateTotals();
+
 updatePhysics();
 
 
@@ -369,6 +356,6 @@ function resetSeesaw(){
   
     updatePhysics();
     updateStatsUI && updateStatsUI();
-    updateTotals()
+
 
 }
