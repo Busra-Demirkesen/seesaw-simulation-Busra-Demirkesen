@@ -139,6 +139,8 @@ function addObject({ x, distanceFromPivot }) {
   updateTotals();
   updatePhysics();
   updateStatsUI();
+  addLogEntry(weight, distanceFromPivot);
+
 }
 
 
@@ -203,5 +205,48 @@ function renderScaleLabels(stepPx = 100){
   }
 }
 
+const PX_PER_CM = 4;
+
+const logEl = document.getElementById('event-log');
+const LOG_LIMIT= 50;
+
+function formatDistanceCm(distanceFromPivot){
+    const cm = Math.round(Math.abs(distanceFromPivot) / PX_PER_CM);
+    return cm;
+}
 
 
+function sideFromDistance(distanceFromPivot){
+  return distanceFromPivot < 0 ? 'left' : 'right';
+}
+
+function addLogEntry(weight, distanceFromPivot){
+  if (!logEl) return;
+  const cm = formatDistanceCm(distanceFromPivot);
+  const side = sideFromDistance(distanceFromPivot);
+
+  const item = document.createElement('div');
+  item.className= 'log-item';
+
+  const icon = document.createElement('span');
+  icon.className = 'log-emoji';
+  icon.textContent = '🧱';
+
+    const text = document.createElement('span');
+  text.innerHTML = `
+    <span class="log-weight">${weight}kg</span>
+    dropped on <span class="log-side">${side}</span> side
+    at <span class="log-distance">${cm}cm</span> from center
+  `;
+
+  item.appendChild(icon);
+  item.appendChild(text);
+
+  logEl.prepend(item);
+
+  const items = logEl.querySelectorAll('.log-item');
+  if(items.length > LOG_LIMIT){
+    logEl.removeChild(logEl.lastElementChild);
+  }
+
+}
