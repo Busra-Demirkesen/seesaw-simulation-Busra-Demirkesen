@@ -67,6 +67,44 @@ function addObject({ x, distanceFromPivot }) {
   objects.push(object);
   createObjectElement(object);
   updateTotals();
+  updatePhysics();
 }
+
+
+function computeTorques() {
+    let leftTorque = 0;
+    let rightTorque = 0;
+
+    for(const obj of objects) {
+        const torque = obj.weight * Math.abs(obj.distanceFromPivot);
+        if(obj.distanceFromPivot < 0) leftTorque += torque;
+        else rightTorque += torque;
+    }
+
+    return{leftTorque, rightTorque};
+}
+
+
+function clamp(value, min, max){
+    return Math.max(min, Math.min(max,value));
+}
+
+function computeAngle(leftTorque,rightTorque){
+    const raw = (rightTorque - leftTorque) / 10 ;
+    return clamp(raw, -30,30);
+}
+
+function applyAngle(angle){
+    seesawEl.style.transform = `rotate(${angle}deg)`;
+}
+
+function updatePhysics() {
+  const { leftTorque, rightTorque } = computeTorques();
+  const angle = computeAngle(leftTorque, rightTorque);
+  applyAngle(angle);
+}
+
+updateTotals();
+updatePhysics();
 
 
