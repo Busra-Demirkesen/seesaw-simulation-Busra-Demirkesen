@@ -1,6 +1,43 @@
+
+window.addEventListener('load', () => {
+  renderScaleLabels(100);
+});
+
+
+
+const leftWeightCardEl = document.getElementById('left-weight-card');
+const rightWeightCardEl = document.getElementById('right-weight-card');
+const leftTorqueCardEl  = document.getElementById('left-torque-card');
+const rightTorqueCardEl = document.getElementById('right-torque-card');
+const leftCountCardEl   = document.getElementById('left-count-card');
+const rightCountCardEl  = document.getElementById('right-count-card');
+const angleCardEl = document.getElementById('angle-card');
+
+
 const seesawEl = document.querySelector('.seesaw');
 const leftTotalEl = document.getElementById('left-total');
 const rightTotalEl = document.getElementById('right-total');
+
+
+
+function updateStatsUI(){
+  let leftW = 0, rightW = 0, leftC = 0, rightC = 0;
+  for (const o of objects){
+    if (o.distanceFromPivot < 0){ leftW += o.weight; leftC++; }
+    else { rightW += o.weight; rightC++; }
+  }
+  const { leftTorque, rightTorque } = computeTorques();
+  const angle = computeAngle(leftTorque, rightTorque);
+
+  if (leftWeightCardEl)  leftWeightCardEl.textContent  = leftW;
+  if (rightWeightCardEl) rightWeightCardEl.textContent = rightW;
+  if (leftTorqueCardEl)  leftTorqueCardEl.textContent  = Math.round(leftTorque);
+  if (rightTorqueCardEl) rightTorqueCardEl.textContent = Math.round(rightTorque);
+  if (leftCountCardEl)   leftCountCardEl.textContent   = leftC;
+  if (rightCountCardEl)  rightCountCardEl.textContent  = rightC;
+  if (angleCardEl)       angleCardEl.textContent       = Math.round(angle);
+}
+
 
 if(!seesawEl || !leftTotalEl || !rightTotalEl){
     console.error('Required elements not found in DOM');
@@ -68,6 +105,7 @@ function addObject({ x, distanceFromPivot }) {
   createObjectElement(object);
   updateTotals();
   updatePhysics();
+  updateStatsUI();
 }
 
 
@@ -95,8 +133,10 @@ function computeAngle(leftTorque,rightTorque){
 }
 
 function applyAngle(angle){
-    seesawEl.style.transform = `rotate(${angle}deg)`;
+  seesawEl.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 }
+
+
 
 function updatePhysics() {
   const { leftTorque, rightTorque } = computeTorques();
@@ -106,5 +146,29 @@ function updatePhysics() {
 
 updateTotals();
 updatePhysics();
+
+
+
+function renderScaleLabels(stepPx = 100){
+  const scaleEl = document.getElementById('scale');
+  if (!scaleEl) return;
+
+
+  scaleEl.querySelectorAll('.tick-label').forEach(n => n.remove());
+
+  const width = seesawEl.offsetWidth;
+  const pivot = width / 2;
+
+ 
+  for (let dx = -pivot; dx <= pivot; dx += stepPx){
+    const label = document.createElement('span');
+    label.className = 'tick-label';
+    
+    label.textContent = dx === 0 ? '0' : (dx > 0 ? `+${dx}` : `${dx}`);
+    label.style.left = (pivot + dx) + 'px';
+    scaleEl.appendChild(label);
+  }
+}
+
 
 

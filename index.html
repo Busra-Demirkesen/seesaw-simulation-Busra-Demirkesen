@@ -8,16 +8,45 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="stats">
+  <div class="card">
+    <div class="card-title">Left</div>
+    <div class="card-value"><span id="left-weight-card">0</span> kg</div>
+    <div class="card-sub">Torque: <span id="left-torque-card">0</span></div>
+    <div class="card-sub">Objects: <span id="left-count-card">0</span></div>
+  </div>
+
+  <div class="card center">
+    <div class="card-title">Angle</div>
+    <div class="card-value"><span id="angle-card">0</span>°</div>
+    <div class="card-sub">Range: -30° ~ +30°</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Right</div>
+    <div class="card-value"><span id="right-weight-card">0</span> kg</div>
+    <div class="card-sub">Torque: <span id="right-torque-card">0</span></div>
+    <div class="card-sub">Objects: <span id="right-count-card">0</span></div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="seesaw-wrapper">
     <div class="pivot"></div>
-    <div class="seesaw"></div>
+    <div class="seesaw">
+      <div class="scale" id="scale"></div>
+    </div>
   </div>
+</div>
+
+<div class="weight-display">
+  <span>Left Total: <strong id="left-total">0 kg</strong></span>
+  <span>Right Total: <strong id="right-total">0 kg</strong></span>
+</div>
 
 
-  <div class="weight-display">
-    <span>Left Total: <strong id="left-total"></strong></span>
-    <span>Right Total: <strong id="right-total"></strong></span>
-  </div>
+
+  
 
   <script defer src="app.js"></script>
 </body>
