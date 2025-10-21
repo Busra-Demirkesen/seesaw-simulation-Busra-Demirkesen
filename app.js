@@ -90,17 +90,17 @@ function createObjectElement(object) {
     const w= object.weight;
     const size = sizeForWeight(w);
 
-      el.className = 'object';
+     
   el.style.width  = size + 'px';
   el.style.height = size + 'px';
 
-
-  el.style.left   = (object.x - size / 2) + 'px';
+el.style.left = object.x + 'px';
+el.style.transform = 'translateX(-50%)';
   el.style.bottom = '12px'; 
 
   el.style.background = colorForWeight(w);
   el.style.boxShadow  = `0 0 ${Math.max(4, size/4)}px rgba(0,0,0,0.25)`;
-
+el.className = 'object dropping';
   
   el.textContent = w; 
   el.style.display = 'flex';
@@ -116,6 +116,10 @@ function createObjectElement(object) {
 
   el.style.pointerEvents = 'none';
   seesawEl.appendChild(el);
+
+  setTimeout(() => {
+    el.classList.remove('dropping');
+  }, 800); 
 }
 
 

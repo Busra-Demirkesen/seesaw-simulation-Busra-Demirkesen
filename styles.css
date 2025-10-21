@@ -135,7 +135,7 @@ body{
   height:12px;
   background:444; border-radius:50%;
   box-shadow:0 0 4px rgba(0,0,0,.3);
-  pointer-events:none; z-index:3;
+  pointer-events:none;
 }
 
 .controls-bar{
@@ -160,6 +160,32 @@ body{
 
 #reset-btn:hover{
   background-color: #c0392b;
+}
+
+@keyframes drop-and-settle{
+ 0% {
+        transform: translate(-50%, -200px); 
+        opacity: 0;
+    }
+    30% {
+        opacity: 1; 
+    }
+    70% {
+        transform: translate(-50%, 0); 
+        animation-timing-function: ease-out;
+    }
+    85% {
+        transform: translate(-50%, -10px);
+        animation-timing-function: ease-in-out;
+    }
+    100% {
+        transform: translate(-50%, 0); 
+        animation-timing-function: ease-in;
+    }
+}
+
+.object.dropping{
+  animation: drop-and-settle 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 
