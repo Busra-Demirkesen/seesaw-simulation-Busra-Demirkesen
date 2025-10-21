@@ -284,9 +284,41 @@ try {
   } catch (err) {
     console.warn("Failed to parse stored state", err);
   }
-}
 
-    function clearStorage(){
+  function clearStorage(){
         localStorage.removeItem(STORAGE_KEY);
     }
+}
 
+    
+
+const resetBtn = document.getElementById('reset-btn');
+
+if(resetBtn){
+    resetBtn.addEventListener('click', resetSeesaw);
+}
+
+function resetSeesaw(){
+    objects = [];
+
+   document.querySelectorAll('.object').forEach(el => el.parentNode.removeChild(el));
+
+
+    seesawEl.style.transform = 'translateX(-50%) rotate(0deg)';
+
+  if (leftWeightCardEl)  leftWeightCardEl.textContent  = '0';
+  if (rightWeightCardEl) rightWeightCardEl.textContent = '0';
+  if (leftTorqueCardEl)  leftTorqueCardEl.textContent  = '0';
+  if (rightTorqueCardEl) rightTorqueCardEl.textContent = '0';
+  if (leftCountCardEl)   leftCountCardEl.textContent   = '0';
+  if (rightCountCardEl)  rightCountCardEl.textContent  = '0';
+  if (angleCardEl)       angleCardEl.textContent       = '0';
+
+  const logEl = document.getElementById('event-log');
+  if(logEl) logEl.innerHTML = '';
+  localStorage.removeItem('seesawState');
+  
+    updatePhysics();
+    updateStatsUI && updateStatsUI();
+
+}
