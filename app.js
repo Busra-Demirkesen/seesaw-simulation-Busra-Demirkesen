@@ -78,6 +78,13 @@ function colorForWeight(w){
     return `hsl(${hue}, 70% ,45%)`;
 }
 
+
+function playDropSound(){
+    const sound = new Audio('sound/drop.mp3');
+    sound.volume = 0.5;
+    sound.play().catch(e => console.warn('Sound could not be played:',e));
+    
+}
 function createObjectElement(object) {
     const el = document.createElement('div');
     const w= object.weight;
@@ -125,6 +132,7 @@ function addObject({ x, distanceFromPivot }) {
 
   objects.push(object);
   createObjectElement(object);
+  playDropSound();
 
   updatePhysics();
   updateStatsUI();
@@ -359,3 +367,4 @@ function resetSeesaw(){
 
 
 }
+
