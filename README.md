@@ -1,49 +1,56 @@
-# 🤸‍♂️ Seesaw Simulation (Sallanan Tahta Simülasyonu)
+# ⚖️ Tahterevalli Simülasyonu — *Saf JavaScript ile Fizik Uygulaması*
 
-[![GitHub repo size](https://img.shields.io/github/repo-size/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
-[![GitHub language count](https://img.shields.io/github/languages/count/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
+> 🎯 **HTML, CSS ve Vanilla JavaScript** kullanarak geliştirilmiş etkileşimli bir tahterevalli simülasyonu.  
+> Kullanıcı, tahterevallinin üzerine tıklayarak rastgele ağırlıklarda (1–10 kg) nesneler bırakabilir.  
+> Tahterevalli, bu nesnelerin tork etkisine göre **gerçekçi bir şekilde eğilir ve dengelenir**.
 
-## 🌟 Giriş
+---
 
-Bu proje, temel fizik prensiplerine dayanan bir **sallanan tahta (seesaw)** sisteminin dinamik davranışını görselleştiren ve simüle eden bir uygulamadır. Farklı kütlelerin ve uzaklıkların sistemin denge veya hareket durumu üzerindeki etkisini interaktif olarak gözlemleyin!
+## 🌐 Canlı Demo
+🔗 **GitHub Pages:** [https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/](https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/)  
+📦 **Repo:** [https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen)
 
-## ✨ Özellikler
+---
 
-* **Dinamik Görselleştirme:** Sallanan tahtanın (seesaw) gerçek zamanlı hareketini gösteren etkileşimli grafik arayüzü.
-* **Ayarlanabilir Parametreler:**
-    * ⚖️ Kütlelerin Ağırlıkları ($m_1$, $m_2$)
-    * 📏 Kütlelerin Merkezden Uzaklıkları ($d_1$, $d_2$)
-* **Fiziksel Doğruluk:** **Tork (moment)** ve **denge (equilibrium)** denklemleri kullanılarak yüksek hassasiyetli simülasyon.
-* **Kullanıcı Dostu Arayüz:** Simülasyonu kolayca kontrol etmek için basit giriş alanları.
+## 🧩 Proje Özeti
+Bu proje, **yalnızca HTML, CSS ve saf JavaScript** kullanarak fiziksel denge prensibini görselleştirmeyi amaçlar.  
+Kullanıcı her tıkladığında yeni bir nesne oluşturulur, tork hesaplanır, tahterevalli eğim açısını günceller ve animasyonlu olarak yeni konumuna döner.
 
-## 🚀 Kurulum
+---
 
-Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
+## ⚙️ Kullanılan Teknolojiler
 
-### ⚙️ Önkoşullar
+| Teknoloji | Açıklama |
+|------------|-----------|
+| 💻 **HTML5** | Sayfa yapısı ve temel iskelet |
+| 🎨 **CSS3** | Görsel tasarım, animasyon ve responsive yapı |
+| ⚡ **JavaScript (ES6)** | Fizik hesaplamaları, olay yönetimi, DOM manipülasyonu |
+| 💾 **LocalStorage** | Sayfa yenilense bile nesneleri ve açıyı saklama |
 
-Bu simülasyonun çalışması için aşağıdaki yazılımlara ihtiyacınız olabilir:
+---
 
-* [Proje Dili, örn: Python 3.x]
-* [Gerekli Kütüphaneler, örn: `numpy`, `pygame` veya `matplotlib`]
+## 🚀 Özellikler
 
-### 📥 Klonlama
+✅ Tıklama ile rastgele (1–10 kg) ağırlıkta nesne oluşturma  
+✅ Gerçek zamanlı **tork ve açı hesaplaması**  
+✅ Akıcı **dönme animasyonu**  
+✅ Sol / sağ tarafın toplam ağırlık, tork ve nesne sayısının canlı güncellenmesi  
+✅ Açı bilgisinin dinamik olarak gösterilmesi  
+✅ **LocalStorage** ile kalıcı veri saklama  
+✅ Reset butonu ile sıfırlama  
+✅ Tamamen responsive tasarım (mobil uyumlu)  
+✅ İsteğe bağlı düşme sesi efekti 🎧  
 
-Proje deposunu klonlayın ve klasöre geçin:
+---
 
-```bash
-git clone [https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
-cd seesaw-simulation-Busra-Demirkesen
+## ⚖️ Fiziksel Mantık
 
+Tahterevalli, **tork dengesine** göre eğilir:
 
+```js
+// Her nesne için tork hesabı
+const torque = obj.weight * Math.abs(obj.distanceFromPivot);
 
-### 📦 Bağımlılıkların Yüklenmesi
-
-Gerekli tüm kütüphaneleri (varsa `requirements.txt` dosyasından) yükleyin:
-
-```bash
-# Python için örnek:
-pip install -r requirements.txt
-
-
-
+// Açının hesaplanması (maksimum ±30 derece)
+const raw = (rightTorque - leftTorque) / 10;
+const angle = Math.max(-30, Math.min(30, raw));
