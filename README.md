@@ -1,33 +1,36 @@
-# Seesaw Simulation (Pure JS)
+# 🤸‍♂️ Seesaw Simulation (Sallanan Tahta Simülasyonu)
 
-**EN (short):** A pure HTML/CSS/JS seesaw simulation. Click the plank to drop random-weight (1–10 kg) objects; the seesaw tilts based on torque. Smooth animation, state persistence, and UI stats. Includes a robust **hitbox + coordinate transform** fix so objects land exactly where you click even while the seesaw is rotated.
+[![GitHub repo size](https://img.shields.io/github/repo-size/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
+[![GitHub language count](https://img.shields.io/github/languages/count/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
 
-**TR (kısa):** Saf HTML/CSS/JS ile tahterevalli simülasyonu. Tahtaya tıklayınca rastgele ağırlıkta (1–10 kg) objeler düşer; tork farkına göre açı hesaplanır ve yumuşak bir animasyonla döner. LocalStorage ile durum saklanır. Dönerken oluşan tıklama sapmasını gidermek için **hitbox + koordinat dönüşümü** çözümü uygulanmıştır.
+## 🌟 Giriş
 
----
+Bu proje, temel fizik prensiplerine dayanan bir **sallanan tahta (seesaw)** sisteminin dinamik davranışını görselleştiren ve simüle eden bir uygulamadır. Farklı kütlelerin ve uzaklıkların sistemin denge veya hareket durumu üzerindeki etkisini interaktif olarak gözlemleyin!
 
-## 🔗 Demo
-- GitHub Pages: `https://<username>.github.io/seesaw-simulation-Busra-Demirkesen/`
-- Repo: `https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen`
+## ✨ Özellikler
 
-> Not: Pages linkini düzenleyip burayı güncelle.
+* **Dinamik Görselleştirme:** Sallanan tahtanın (seesaw) gerçek zamanlı hareketini gösteren etkileşimli grafik arayüzü.
+* **Ayarlanabilir Parametreler:**
+    * ⚖️ Kütlelerin Ağırlıkları ($m_1$, $m_2$)
+    * 📏 Kütlelerin Merkezden Uzaklıkları ($d_1$, $d_2$)
+* **Fiziksel Doğruluk:** **Tork (moment)** ve **denge (equilibrium)** denklemleri kullanılarak yüksek hassasiyetli simülasyon.
+* **Kullanıcı Dostu Arayüz:** Simülasyonu kolayca kontrol etmek için basit giriş alanları.
 
----
+## 🚀 Kurulum
 
-## 🎯 Özellikler
-- Tıklanan noktaya **1–10 kg** rastgele ağırlıkta obje bırakma
-- **Gerçekçi tork** hesabı: `torque = Σ(weight × distanceFromPivot)`
-- **Açı sınırı:** ±30° (clamp)
-- **Yumuşak tilt** animasyonu (CSS `transition`)
-- **Durum kaydı:** LocalStorage ile sayfa yenilense de devam
-- **UI istatistikleri:** sol/sağ toplam ağırlık, tork, obje sayısı, açı
-- **Bonuslar:** reset butonu, obje üstünde ağırlık etiketi, görsel skala, ses efekti
+Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
 
----
+### ⚙️ Önkoşullar
 
-## 🧠 Fizik Mantığı
-- Tahta uzunluğu sabit (örn. **400px**), pivot tam ortada.
-- Her obje için moment kolu: `|x - pivot|`
-- Sol ve sağ torklar ayrı toplanır:
-  ```js
-  const torque = obj.weight * Math.abs(obj.distanceFromPivot);
+Bu simülasyonun çalışması için aşağıdaki yazılımlara ihtiyacınız olabilir:
+
+* [Proje Dili, örn: Python 3.x]
+* [Gerekli Kütüphaneler, örn: `numpy`, `pygame` veya `matplotlib`]
+
+### 📥 Klonlama
+
+Proje deposunu klonlayın ve klasöre geçin:
+
+```bash
+git clone [https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
+cd seesaw-simulation-Busra-Demirkesen
