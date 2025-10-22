@@ -34,3 +34,16 @@ Proje deposunu klonlayın ve klasöre geçin:
 ```bash
 git clone [https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen.git)
 cd seesaw-simulation-Busra-Demirkesen
+
+
+
+### 📦 Bağımlılıkların Yüklenmesi
+
+Gerekli tüm kütüphaneleri (varsa `requirements.txt` dosyasından) yükleyin:
+
+```bash
+# Python için örnek:
+pip install -r requirements.txt
+
+
+
