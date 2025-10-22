@@ -43,23 +43,44 @@ if(!seesawEl){
     console.error('Required elements not found in DOM');
 }
 
-seesawEl.addEventListener('click', (e) =>{
-    const rect = seesawEl.getBoundingClientRect();
-    const localX = e.clientX - rect.left;
-
-    if (localX < 0 || localX > rect.width) return;
-    const pivotX= rect.width / 2 ;
-    const distanceFromPivot = localX - pivotX;
-
-    console.log({
-        localX: Math.round(localX),
-        pivotX:Math.round(pivotX),
-        distanceFromPivot: Math.round(distanceFromPivot)
-    });
 
 
-    addObject({ x: localX, distanceFromPivot });
-});
+const hitboxEl = document.querySelector('.seesaw-hitbox');
+
+if(!seesawEl || !hitboxEl) {
+  onsole.error(' seesaw or hitbox couldnt find');
+}else{
+  hitboxEl.addEventListener('click',(e) =>{
+       const rect = hitboxEl.getBoundingClientRect();
+      const localX = e.clientX - rect.left;
+       if(localX < 0 || localX > rect.width) return;
+
+       const pivotX = rect.width / 2;
+       const distanceFromPivot = localX - pivotX;
+
+       addObject({x:localX, distanceFromPivot});
+      });
+}
+
+function renderScaleLabels(stepPx = 100){
+  const scaleEl = document.getElementById('scale');
+  if (!scaleEl) return;
+
+  scaleEl.querySelectorAll('.tick-label').forEach(n => n.remove());
+
+  const width = (document.querySelector('.seesaw-hitbox')?.clientWidth) || seesawEl.clientWidth;
+  const pivot = width / 2;
+
+  for (let dx = -pivot; dx <= pivot; dx += stepPx){
+    const label = document.createElement('span');
+    label.className = 'tick-label';
+    label.textContent = dx === 0 ? '0' : (dx > 0 ? `+${dx}` : `${dx}`);
+    label.style.left = (pivot + dx) + 'px';
+    scaleEl.appendChild(label);
+  }
+}
+
+
 
 
 let objects = [];
