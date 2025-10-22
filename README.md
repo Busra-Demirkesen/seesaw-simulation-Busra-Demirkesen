@@ -1,14 +1,3 @@
-/**
- * 🎯 Bu dosya, "Tahterevalli Simülasyonu" projesinin README.md içeriğini
- * JavaScript ortamında kolayca görüntülemek veya başka bir dosyaya aktarmak için
- * bir değişken içinde saklar.
- *
- * 👩‍💻 Geliştirici: Büşra Demirkesen
- * 🌐 GitHub: https://github.com/Busra-Demirkesen
- * 📅 Tarih: 2025
- */
-
-const readmeIcerigi = `
 # ⚖️ Tahterevalli Simülasyonu — *Saf JavaScript ile Fizik Uygulaması*
 
 > 🎯 **HTML, CSS ve Vanilla JavaScript** kullanarak geliştirilmiş etkileşimli bir tahterevalli simülasyonu.  
@@ -176,6 +165,3 @@ Kod, eğitim ve kişisel projelerde serbestçe kullanılabilir. 📚
 
 > ✨ “Basit bir fizik deneyi, doğru uygulanınca etkileşimli bir deneyime dönüşebilir.” — *Büşra Demirkesen*
 `;
-
-console.log("%cREADME içeriği hazır! 🎉", "color: #42b883; font-weight: bold;");
-console.log(readmeIcerigi);
