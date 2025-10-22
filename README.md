@@ -56,15 +56,15 @@ const raw = (rightTorque - leftTorque) / 10;
 const angle = Math.max(-30, Math.min(30, raw));
 
 
-
 ## 🖱️ Tıklama Mantığı ve Hitbox Çözümü
 
-Tahterevalli döndükçe tıklama alanı da dönüyordu, bu da nesnelerin **tam tıklanan noktanın biraz soluna düşmesine** neden oluyordu.  
-Bu problemi çözmek için tahterevallinin üstüne sabit kalan, şeffaf bir **`.seesaw-hitbox`** katmanı eklendi.  
-Tıklama artık bu sabit alan üzerinden yakalanıyor.
+Tahterevalli döndükçe tıklama alanı da dönüyordu, bu da nesnelerin tam tıklanan noktanın **biraz soluna düşmesine** neden oluyordu.
+
+Bu problemi çözmek için tahterevallinin üstüne **sabit kalan, şeffaf bir** `.seesaw-hitbox` **katmanı** eklendi. Tıklama artık bu sabit alan üzerinden yakalanıyor.
 
 ### 💡 Çözüm Kodu
-```js
+
+```javascript
 const hitRect = hitboxEl.getBoundingClientRect();
 const sawRect = seesawEl.getBoundingClientRect();
 
@@ -72,11 +72,10 @@ const xOnHitbox = e.clientX - hitRect.left;
 const deltaLeft = (hitRect.width - sawRect.width) / 2; // genişlik farkı düzeltmesi
 let xOnSeesaw = xOnHitbox - deltaLeft;
 
-xOnSeesaw = Math.max(0, Math.min(sawRect.width, xOnSeesaw)); // sınır içinde tut
+// Sınır içinde tutma
+xOnSeesaw = Math.max(0, Math.min(sawRect.width, xOnSeesaw)); 
+
 const pivotX = sawRect.width / 2;
 const distanceFromPivot = xOnSeesaw - pivotX;
 
 addObject({ x: xOnSeesaw, distanceFromPivot });
-
-
----
