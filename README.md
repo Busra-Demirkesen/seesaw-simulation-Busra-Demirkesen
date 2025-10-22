@@ -56,7 +56,6 @@ const raw = (rightTorque - leftTorque) / 10;
 const angle = Math.max(-30, Math.min(30, raw));
 
 
----
 
 ## 🖱️ Tıklama Mantığı ve Hitbox Çözümü
 
