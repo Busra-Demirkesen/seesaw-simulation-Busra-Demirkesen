@@ -79,3 +79,5 @@ const distanceFromPivot = xOnSeesaw - pivotX;
 
 addObject({ x: xOnSeesaw, distanceFromPivot });
 
+
+---
