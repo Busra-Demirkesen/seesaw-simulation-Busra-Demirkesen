@@ -41,7 +41,7 @@ ve animasyonlu olarak yeni konumuna geçer.
 ✅ **LocalStorage** ile kalıcı veri saklama  
 ✅ Reset butonu ile sıfırlama  
 ✅ Responsive (mobil uyumlu) tasarım  
-✅ İsteğe bağlı düşme sesi efekti 🎧  
+✅ Düşme sesi efekti 🎧  
 
 ---
 
@@ -114,16 +114,6 @@ cd seesaw-simulation-Busra-Demirkesen
 
 ---
 
-## 🧠 STAR Analizi — “Tıklama Sapması” Hatası
-
-| Adım | Açıklama |
-|------|-----------|
-| **Situation (Durum)** | Bazı nesneler tıklanan noktanın biraz soluna düşüyordu. |
-| **Task (Görev)** | Nesnelerin tam tıklanan noktaya düşmesini sağlamak. |
-| **Action (Eylem)** | Sabit bir hitbox katmanı ekleyip, koordinat dönüşümü (`deltaLeft`) uygulandı. |
-| **Result (Sonuç)** | Tıklama sapması tamamen düzeldi; artık tüm nesneler doğru noktaya düşüyor. |
-
----
 
 ## 🧱 Klasör Yapısı
 
@@ -139,29 +129,13 @@ cd seesaw-simulation-Busra-Demirkesen
 
 ---
 
-## 🧠 Bu Projeyle Öğrendiklerim
-
-- Tork tabanlı denge fiziğini derinlemesine anladım ⚖️  
-- DOM dönüşümlerinin koordinat sistemine etkisini öğrendim  
-- Hitbox tekniğiyle dönüşten bağımsız tıklama koordinatları elde ettim  
-- LocalStorage ile durumu saklamayı öğrendim  
-- Basit araçlarla dinamik bir fizik simülasyonu kurdum 🚀  
-
----
-
-## 📄 Lisans
-
-Bu proje **MIT Lisansı** ile açık kaynak olarak paylaşılmıştır.  
-Kod, eğitim ve kişisel projelerde serbestçe kullanılabilir. 📚
-
----
 
 ## 👩‍💻 Geliştirici
 
 **Büşra Demirkesen**  
 📅 *2025*  
 🔗 [GitHub Profilim](https://github.com/Busra-Demirkesen)  
-📧 *İletişim:* busrademirkesen.dev@gmail.com *(isteğe bağlı)*
+📧 *İletişim:* busrademirkesen2@gmail.com
 
 > ✨ “Basit bir fizik deneyi, doğru uygulanınca etkileşimli bir deneyime dönüşebilir.” — *Büşra Demirkesen*
 `;
