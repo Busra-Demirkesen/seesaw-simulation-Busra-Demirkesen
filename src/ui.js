@@ -158,26 +158,54 @@ export function addLogEntry(weight, distanceFromPivot) {
 function handleHitboxClick(e) {
   if (!hitboxEl || !seesawEl) return;
 
-  const hitRect = hitboxEl.getBoundingClientRect();
-  const sawRect = seesawEl.getBoundingClientRect();
 
-  const xOnHitbox = e.clientX - hitRect.left;
-  if (xOnHitbox < 0 || xOnHitbox > hitRect.width) return;
+  const clickX = e.clientX;
+  const clickY = e.clientY;
 
-  const deltaLeft = (hitRect.width - sawRect.width) / 2;
-  let xOnSeesaw = xOnHitbox - deltaLeft;
+  
+  const rect = seesawEl.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const barLength = seesawEl.offsetWidth;   
+  const barThickness = seesawEl.offsetHeight; 
 
-  xOnSeesaw = Math.max(0, Math.min(SEESAW_WIDTH, xOnSeesaw));
 
-  const FIXED_PIVOT_X = SEESAW_WIDTH / 2;
-  const distanceFromPivot = xOnSeesaw - FIXED_PIVOT_X;
+  const { leftTorque, rightTorque } = computeTorques();
+  const angleDeg = computeAngle(leftTorque, rightTorque);
+  const theta = (angleDeg * Math.PI) / 180;
 
-  const weight = randomWeight();
 
+  const vx = clickX - cx;
+  const vy = clickY - cy;
+  const cosT = Math.cos(theta);
+  const sinT = Math.sin(theta);
+
+
+  const xLocal =  vx * cosT + vy * sinT;
+  const yLocal = -vx * sinT + vy * cosT;
+
+  
+  const halfLen = barLength / 2;
+  const halfThk = barThickness / 2;
+  const PAD = 4; 
+
+  const insideLength  = Math.abs(xLocal) <= (halfLen + PAD);
+  const insideThickness = Math.abs(yLocal) <= (halfThk + PAD);
+
+  if (!(insideLength && insideThickness)) {
+    
+    return;
+  }
+
+
+  const xOnSeesaw = xLocal + halfLen;
+  const distanceFromPivot = xLocal;
+
+  const weight = Math.floor(Math.random() * 10) + 1;
   const object = {
     id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
     weight,
-    x: xOnSeesaw,
+    x: Math.max(0, Math.min(barLength, xOnSeesaw)),
     distanceFromPivot
   };
 
@@ -187,6 +215,8 @@ function handleHitboxClick(e) {
   updatePhysics();
   updateStatsUI();
 }
+
+
 
 function resetSeesawUI() {
   document.querySelectorAll('.object').forEach(el => el.remove());
