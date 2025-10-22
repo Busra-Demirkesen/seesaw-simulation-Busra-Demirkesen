@@ -114,15 +114,17 @@ addObject({ x: xOnSeesaw, distanceFromPivot });
 
 ## 🗂️ Klasör Yapısı
 
-\`\`\`
 /
-├── index.html          # Uygulama iskeleti
-├── styles.css          # Tasarım ve animasyonlar
-├── app.js              # Uygulama mantığı
+├── index.html               # Uygulama iskeleti
+├── main.js                  # Bootstrap & modül bağlama
+├── src/
+│   ├── core.js              # Fizik motoru: torque & angle
+│   ├── state.js             # Uygulama durumu + LocalStorage
+│   └── ui.js                # DOM & etkileşim (hitbox, animasyon)
+├── styles.css               # (opsiyonel) Stil ve animasyonlar
 ├── sound/
-│   └── drop.mp3        # Nesne düşme sesi (opsiyonel)
+│   └── drop.mp3             # (opsiyonel) Nesne düşme sesi
 └── README.md
-\`\`\`
 
 ---
 
