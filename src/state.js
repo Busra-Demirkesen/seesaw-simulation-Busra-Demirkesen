@@ -12,19 +12,17 @@ const STORAGE_KEY = 'seesaw_stage_v1';
 
 const PX_PER_CM = 4;
 
-function formatDistanceCm(distanceFromPivot){
-    const cm = Math.round(Math.abs(distanceFromPivot) / PX_PER_CM);
-    return cm;
-}
+const formatDistanceCm = (distanceFromPivot) =>
+  Math.round(Math.abs(distanceFromPivot) / PX_PER_CM);
 
-function sideFromDistance(distanceFromPivot){
+function sideFromDistance(distanceFromPivot) {
     return distanceFromPivot < 0 ? 'left' : 'right';
 }
 
 
 
-export function saveState(){
-    const {leftTorque, rightTorque} = computeTorques(objects);
+export function saveState() {
+    const { leftTorque, rightTorque } = computeTorques(objects);
     const angle = computeAngle(leftTorque, rightTorque);
 
     const data = {
@@ -38,26 +36,26 @@ export function saveState(){
 
 export function loadStorage() {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return;
+    if (!raw) return;
 
     try {
         const data = JSON.parse(raw);
         if (Array.isArray(data.objects)) {
-            objects = data.objects;     
-            objects.forEach(o => createObjectElement(o)); 
-            updatePhysics(objects); 
-            updateStatsUI(); 
+            objects = data.objects;
+            objects.forEach(o => createObjectElement(o));
+            updatePhysics(objects);
+            updateStatsUI();
         }
 
-        if(Array.isArray(data.dropLogs)){
+        if (Array.isArray(data.dropLogs)) {
             dropLogs = data.dropLogs;
-            
-        
-            const logEl = document.getElementById('eventLog'); 
-            if(logEl){
+
+
+            const logEl = document.getElementById('eventLog');
+            if (logEl) {
                 logEl.innerHTML = '';
-               
-                dropLogs.slice().reverse().forEach(l => { 
+
+                dropLogs.slice().reverse().forEach(l => {
                     const cm = formatDistanceCm(l.distanceFromPivot);
                     const side = sideFromDistance(l.distanceFromPivot);
                     const item = document.createElement('div');
@@ -68,11 +66,11 @@ export function loadStorage() {
                         dropped on <span class="log-side">${side}</span> side
                         at <span class="log-distance">${cm}cm</span> from center
                     `;
-                    logEl.appendChild(item); 
+                    logEl.appendChild(item);
                 });
             }
         }
-        
+
     } catch (err) {
         console.warn("Failed to parse stored state", err);
     }
@@ -80,7 +78,7 @@ export function loadStorage() {
 
 export function addObjectToState(objectData) {
     objects.push(objectData);
-    
+
 
     dropLogs.unshift({
         weight: objectData.weight,
@@ -88,15 +86,15 @@ export function addObjectToState(objectData) {
         side: sideFromDistance(objectData.distanceFromPivot),
         time: new Date().toISOString()
     });
-    
-  
+
+
     if (dropLogs.length > LOG_LIMIT) dropLogs.pop();
 
-    addLogEntry(objectData.weight, objectData.distanceFromPivot); 
+    addLogEntry(objectData.weight, objectData.distanceFromPivot);
     saveState();
 }
 
-export function resetState(){
+export function resetState() {
     objects = [];
     dropLogs = [];
     localStorage.removeItem(STORAGE_KEY);

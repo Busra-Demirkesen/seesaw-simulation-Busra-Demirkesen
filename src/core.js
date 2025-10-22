@@ -3,35 +3,32 @@
 import { objects } from './state.js';
 import { applyAngle } from './ui.js';
 
-function clamp(value, min, max){
-    return Math.max(min, Math.min(max,value));
-}
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
 
 export function computeTorques() {
     let leftTorque = 0;
     let rightTorque = 0;
 
-    for(const obj of objects) {
+    for (const obj of objects) {
         const torque = obj.weight * Math.abs(obj.distanceFromPivot);
-        if(obj.distanceFromPivot < 0) leftTorque += torque;
+        if (obj.distanceFromPivot < 0) leftTorque += torque;
         else rightTorque += torque;
     }
 
-    return {leftTorque, rightTorque};
+    return { leftTorque, rightTorque };
 }
 
-export function computeAngle(leftTorque, rightTorque){
-    const raw = (rightTorque - leftTorque) / 10 ;
+export function computeAngle(leftTorque, rightTorque) {
+    const raw = (rightTorque - leftTorque) / 10;
     return clamp(raw, -30, 30);
 }
 
 export function updatePhysics() {
     const { leftTorque, rightTorque } = computeTorques();
     const angle = computeAngle(leftTorque, rightTorque);
-    applyAngle(angle); 
+    applyAngle(angle);
 }
 
-export function initializeCore() {
-   
-}
+export function initializeCore() {}
 

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seesaw Simulation</title> 
+    <title>Seesaw Simulation</title>
     <link rel="stylesheet" href="./assets/styles/variables.css">
     <link rel="stylesheet" href="./assets/styles/components.css">
     <link rel="stylesheet" href="./assets/styles/styles.css">
 
 </head>
+
 <body>
     <div class="wrapper">
-        
+
         <div class="stats">
             <div class="card">
                 <div class="card-title">Angle</div>
@@ -31,25 +33,25 @@
                 <div class="card-sub">Objects: <span id="rightObjectCount">0</span></div>
             </div>
         </div>
-        
+
         <div class="stage">
             <div class="seesaw-wrapper">
                 <div class="seesaw-hitbox" id="seesawHitbox"></div>
                 <div class="pivot"></div>
                 <div class="seesaw" id="seesaw">
                     <div class="scale"></div>
-                    </div>
+                </div>
             </div>
         </div>
 
         <div>
             <div class="log-title">Drops History</div>
             <div class="event-log" id="eventLog">
-                </div>
+            </div>
         </div>
 
         <div class="controls-bar">
-            <button id="resetBtn">Reset Simulation</button>
+            <button id="resetBtn">Reset</button>
         </div>
 
     </div>
@@ -57,4 +59,5 @@
     <script type="module" src="./main.js"></script>
 
 </body>
+
 </html>
