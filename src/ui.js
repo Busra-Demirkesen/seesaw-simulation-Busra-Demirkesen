@@ -239,6 +239,7 @@ function handleResetClick() {
   updateStatsUI();
 }
 
+
 export function initializeUI() {
   if (!seesawEl || !hitboxEl) {
     console.error('Seesaw or hitbox elements not found in DOM');
