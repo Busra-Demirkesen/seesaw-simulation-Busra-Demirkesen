@@ -1,13 +1,13 @@
 import { objects, addObjectToState, resetState } from './state.js';
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
 
-// Constants
+
 const dropSoundSrc = './assets/sound/drop.mp3';
 let dropAudio = null;
 const PX_PER_CM = 4;
 const SEESAW_WIDTH = 400;
 
-// Cards map
+
 const cards = {};
 document.querySelectorAll('[data-card]').forEach(el => {
   cards[el.dataset.card] = el;
@@ -20,10 +20,10 @@ const {
   rightTorqueCardEl,
   leftCountCardEl,
   rightCountCardEl,
-  angleCard: angleCardEl // alias
+  angleCard: angleCardEl
 } = cards;
 
-// DOM refs
+
 const seesawEl = document.querySelector('.seesaw');
 const hitboxEl = document.getElementById('seesaw-hitbox');
 const logEl = document.getElementById('event-log');
@@ -45,7 +45,7 @@ export const playDropSound = () => {
   }
   const sound = dropAudio.cloneNode(true);
   sound.volume = 0.5;
-  sound.play().catch(() => {});
+  sound.play().catch(() => { });
 };
 
 export function updateStatsUI() {
@@ -64,7 +64,7 @@ export function updateStatsUI() {
     rightTorqueCardEl: Math.round(rightTorque),
     leftCountCardEl: leftC,
     rightCountCardEl: rightC,
-    angleCard: Math.round(angle) + '°' // ✅ doğru anahtar
+    angleCard: Math.round(angle) + '°'
   };
 
   for (const [key, value] of Object.entries(stats)) {
@@ -80,10 +80,10 @@ export function createObjectElement(object) {
 
   el.className = 'object dropping';
 
-  // ✅ doğrudan left px ver
+
   el.style.left = object.x + 'px';
 
-  // size & styles
+
   el.style.width = size + 'px';
   el.style.height = size + 'px';
   el.style.background = colorForWeight(w);
@@ -96,7 +96,7 @@ export function createObjectElement(object) {
 
   seesawEl.appendChild(el);
 
-  // ✅ animationend dinle
+
   const onEnd = () => {
     el.classList.remove('dropping');
     el.removeEventListener('animationend', onEnd);
@@ -169,7 +169,7 @@ function handleHitboxClick(e) {
 
   xOnSeesaw = Math.max(0, Math.min(SEESAW_WIDTH, xOnSeesaw));
 
-  const FIXED_PIVOT_X = SEESAW_WIDTH / 2; // 200px
+  const FIXED_PIVOT_X = SEESAW_WIDTH / 2;
   const distanceFromPivot = xOnSeesaw - FIXED_PIVOT_X;
 
   const weight = randomWeight();

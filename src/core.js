@@ -32,4 +32,4 @@ export function updatePhysics() {
   applyAngle(angle);
 }
 
-export function initializeCore() {}
+export function initializeCore() { }

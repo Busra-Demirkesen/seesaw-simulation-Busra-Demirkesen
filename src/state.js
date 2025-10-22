@@ -31,7 +31,7 @@ export function loadStorage() {
 
     if (Array.isArray(data.dropLogs)) {
       dropLogs = data.dropLogs;
-      const logEl = document.getElementById('event-log'); // ✅ id uyumlu
+      const logEl = document.getElementById('event-log');
       if (logEl) {
         logEl.innerHTML = '';
         dropLogs.slice().reverse().forEach(l => {

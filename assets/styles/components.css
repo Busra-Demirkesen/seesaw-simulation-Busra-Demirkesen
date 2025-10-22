@@ -17,9 +17,22 @@
   text-align: center;
 }
 
-.card-title { font-size: var(--font-size-card-title); color: var(--color-text-faint); letter-spacing: .3px; }
-.card-value { font-size: var(--font-size-card-value); font-weight: 700; line-height: 1.1; }
-.card-sub   { font-size: var(--font-size-card-sub); color: var(--color-text-light); }
+.card-title {
+  font-size: var(--font-size-card-title);
+  color: var(--color-text-faint);
+  letter-spacing: .3px;
+}
+
+.card-value {
+  font-size: var(--font-size-card-value);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.card-sub {
+  font-size: var(--font-size-card-sub);
+  color: var(--color-text-light);
+}
 
 .seesaw-wrapper {
   position: relative;
@@ -43,7 +56,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 0; height: 0;
+  width: 0;
+  height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 30px solid var(--color-pivot);
@@ -94,11 +108,26 @@
   border-bottom: 1px solid var(--color-border-light);
   font-size: 13px;
 }
-.log-item:last-child { border-bottom: none; }
-.log-emoji { font-size: 14px; }
-.log-weight { font-weight: 700; }
-.log-side { font-weight: 600; }
-.log-distance { color: var(--color-text-medium); }
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-emoji {
+  font-size: 14px;
+}
+
+.log-weight {
+  font-weight: 700;
+}
+
+.log-side {
+  font-weight: 600;
+}
+
+.log-distance {
+  color: var(--color-text-medium);
+}
 
 .object {
   position: absolute;
@@ -114,13 +143,29 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.object.dropping { opacity: 0.8; }
+.object.dropping {
+  opacity: 0.8;
+}
 
-.object.small  { width: 20px; height: 20px; font-size: 9px; }
-.object.medium { width: 35px; height: 35px; font-size: 12px; }
-.object.large  { width: 50px; height: 50px; font-size: 14px; }
+.object.small {
+  width: 20px;
+  height: 20px;
+  font-size: 9px;
+}
 
-/* ✅ HTML ve JS ile aynı id */
+.object.medium {
+  width: 35px;
+  height: 35px;
+  font-size: 12px;
+}
+
+.object.large {
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+}
+
+
 #reset-btn {
   background-color: var(--color-primary-red);
   color: var(--color-background-white);
@@ -132,6 +177,7 @@
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 #reset-btn:hover {
   background-color: var(--color-primary-red-hover);
 }
