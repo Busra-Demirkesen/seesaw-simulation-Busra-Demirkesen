@@ -230,10 +230,7 @@ body{
     border-right: 15px solid transparent;
     border-bottom: 25px solid #333;
   }
-  .tick-label{
-    top: -15px;
-    font-size: 9px;
-  }
+
   .log-title{
     margin: 15px auto 4px;
     text-align: center;
@@ -248,7 +245,7 @@ body{
     max-height: 150px;
   }
   .tick-label{
-    top: -15px; 
+    bottom: -15px; 
     font-size: 9px; 
     }
 
