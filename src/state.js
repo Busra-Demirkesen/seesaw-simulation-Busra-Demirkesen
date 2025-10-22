@@ -1,7 +1,5 @@
-
-
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
-import { updateStatsUI, createObjectElement, addLogEntry } from './ui.js';
+import { updateStatsUI, createObjectElement, addLogEntry, createLogItemElement } from './ui.js';
 
 
 export let objects = [];
@@ -10,24 +8,15 @@ const LOG_LIMIT = 50;
 const STORAGE_KEY = 'seesaw_stage_v1';
 
 
-const PX_PER_CM = 4;
-
-const formatDistanceCm = (distanceFromPivot) =>
-  Math.round(Math.abs(distanceFromPivot) / PX_PER_CM);
-
 function sideFromDistance(distanceFromPivot) {
     return distanceFromPivot < 0 ? 'left' : 'right';
 }
 
 
-
 export function saveState() {
-    const { leftTorque, rightTorque } = computeTorques(objects);
-    const angle = computeAngle(leftTorque, rightTorque);
-
+    
     const data = {
         objects,
-        angle,
         dropLogs
     };
 
@@ -40,11 +29,13 @@ export function loadStorage() {
 
     try {
         const data = JSON.parse(raw);
+        
+    
         if (Array.isArray(data.objects)) {
-            objects = data.objects;
-            objects.forEach(o => createObjectElement(o));
-            updatePhysics(objects);
-            updateStatsUI();
+            objects = data.objects;     
+            objects.forEach(o => createObjectElement(o)); 
+            updatePhysics(); 
+            updateStatsUI(); 
         }
 
         if (Array.isArray(data.dropLogs)) {
@@ -56,16 +47,9 @@ export function loadStorage() {
                 logEl.innerHTML = '';
 
                 dropLogs.slice().reverse().forEach(l => {
-                    const cm = formatDistanceCm(l.distanceFromPivot);
-                    const side = sideFromDistance(l.distanceFromPivot);
-                    const item = document.createElement('div');
-                    item.className = 'log-item';
-                    item.innerHTML = `
-                        <span class="log-emoji">🧱</span>
-                        <span class="log-weight">${l.weight}kg</span>
-                        dropped on <span class="log-side">${side}</span> side
-                        at <span class="log-distance">${cm}cm</span> from center
-                    `;
+                    
+       
+                    const item = createLogItemElement(l.weight, l.distanceFromPivot);
                     logEl.appendChild(item);
                 });
             }

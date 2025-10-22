@@ -1,18 +1,30 @@
 
 
+
 import { objects, addObjectToState, resetState } from './state.js';
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
 import { loadStorage } from './state.js';
 
 
+const dropSoundSrc = './assets/sound/drop.mp3';
+let dropAudio = null;
+const PX_PER_CM = 4;
 
-const leftWeightCardEl = document.getElementById('leftWeight');
-const rightWeightCardEl = document.getElementById('rightWeight');
-const leftTorqueCardEl = document.getElementById('leftTorque');
-const rightTorqueCardEl = document.getElementById('rightTorque');
-const leftCountCardEl = document.getElementById('leftObjectCount');
-const rightCountCardEl = document.getElementById('rightObjectCount');
-const angleCardEl = document.getElementById('angleCard');
+const cards = {};
+document.querySelectorAll('[data-card]').forEach(el => {
+    cards[el.dataset.card] = el;
+});
+
+const {
+    leftWeightCardEl,
+    rightWeightCardEl,
+    leftTorqueCardEl,
+    rightTorqueCardEl,
+    leftCountCardEl,
+    rightCountCardEl,
+    angleCardEl
+} = cards;
+
 const seesawEl = document.querySelector('.seesaw');
 const hitboxEl = document.getElementById('seesawHitbox');
 const logEl = document.getElementById('eventLog');
@@ -23,16 +35,21 @@ const randomWeight = () => Math.floor(Math.random() * 10) + 1;
 
 const sizeForWeight = (w) => 8 + w * 3;
 
-function colorForWeight(w) {
+export const colorForWeight = (w) => { 
     const hue = 120 - (w - 1) * (120 / 9);
     return `hsl(${hue}, 70% ,45%)`;
 }
 
-function playDropSound() {
+export const playDropSound = () => {
+    if (!dropAudio) {
+        dropAudio = new Audio(dropSoundSrc);
+        dropAudio.preload = 'auto';
+    }
 
-    const sound = new Audio('./assets/sound/drop.mp3');
+    const sound = dropAudio.cloneNode(true);
     sound.volume = 0.5;
-    sound.play().catch(e => console.warn('Sound could not be played:', e));
+
+    sound.play().catch(() => { });
 }
 
 
@@ -46,39 +63,56 @@ export function updateStatsUI() {
     const angle = computeAngle(leftTorque, rightTorque);
 
 
-    if (leftWeightCardEl) leftWeightCardEl.textContent = leftW;
-    if (rightWeightCardEl) rightWeightCardEl.textContent = rightW;
-    if (leftTorqueCardEl) leftTorqueCardEl.textContent = Math.round(leftTorque);
-    if (rightTorqueCardEl) rightTorqueCardEl.textContent = Math.round(rightTorque);
-    if (leftCountCardEl) leftCountCardEl.textContent = leftC;
-    if (rightCountCardEl) rightCountCardEl.textContent = rightC;
-    if (angleCardEl) angleCardEl.textContent = Math.round(angle) + '°';
+    const stats = {
+        leftWeightCardEl: leftW,
+        rightWeightCardEl: rightW,
+        leftTorqueCardEl: Math.round(leftTorque),
+        rightTorqueCardEl: Math.round(rightTorque),
+        leftCountCardEl: leftC,
+        rightCountCardEl: rightC,
+        angleCardEl: Math.round(angle) + '°'
+    };
+
+    for (const [key, value] of Object.entries(stats)) {
+        if (cards[key]) cards[key].textContent = value;
+    }
 }
 
+
 export function createObjectElement(object) {
-  const el = document.createElement('div');
-  const w = object.weight;
-  const size = sizeForWeight(w);
+    if (!seesawEl) return;
+    const el = document.createElement('div');
+    const w = object.weight;
+    const size = sizeForWeight(w);
+
+    el.className = 'object dropping';
+
+    el.style.setProperty('--obj-left', object.x + 'px');
 
 
-  el.className = 'object dropping';
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.background = colorForWeight(w);
+    el.style.boxShadow = `0 0 ${Math.max(4, size / 4)}px rgba(0,0,0,0.25)`;
+    el.style.fontSize = Math.max(9, Math.floor(size / 2.8)) + 'px';
 
-  el.style.left = `${object.x}px`;
-  el.style.background = colorForWeight(w);
-  el.style.boxShadow = `0 0 ${Math.max(4, size / 4)}px rgba(0,0,0,0.25)`;
 
 
-  if (w < 4) el.classList.add('small');
-  else if (w < 7) el.classList.add('medium');
-  else el.classList.add('large');
 
-  el.textContent = w;
-  el.title = `${w} kg`;
-  el.setAttribute('aria-label', `${w} kilograms`);
 
-  seesawEl.appendChild(el);
+    el.textContent = w;
+    el.title = `${w} kg`;
+    el.setAttribute('aria-label', `${w} kilograms`);
 
-  setTimeout(() => el.classList.remove('dropping'), 800);
+    seesawEl.appendChild(el);
+
+
+    const onEnd = () => {
+        el.classList.remove('dropping');
+        el.removeEventListener('transitionend', onEnd);
+    };
+
+    el.addEventListener('transitionend', onEnd, { once: true });
 }
 
 
@@ -107,28 +141,24 @@ export function renderScaleLabels(stepPx = 100) {
     }
 }
 
-export function addLogEntry(weight, distanceFromPivot) {
-    if (!logEl) return;
-    const PX_PER_CM = 4;
+export function createLogItemElement(weight, distanceFromPivot) {
     const cm = Math.round(Math.abs(distanceFromPivot) / PX_PER_CM);
     const side = distanceFromPivot < 0 ? 'left' : 'right';
 
     const item = document.createElement('div');
     item.className = 'log-item';
-
-    const icon = document.createElement('span');
-    icon.className = 'log-emoji';
-    icon.textContent = '🧱';
-
-    const text = document.createElement('span');
-    text.innerHTML = `
+    item.innerHTML = `
+        <span class="log-emoji">🧱</span>
         <span class="log-weight">${weight}kg</span>
         dropped on <span class="log-side">${side}</span> side
         at <span class="log-distance">${cm}cm</span> from center
     `;
+    return item;
+}
 
-    item.appendChild(icon);
-    item.appendChild(text);
+export function addLogEntry(weight, distanceFromPivot) {
+    if (!logEl) return;
+    const item = createLogItemElement(weight, distanceFromPivot);
 
     logEl.prepend(item);
 
@@ -141,23 +171,23 @@ export function addLogEntry(weight, distanceFromPivot) {
 
 
 const handleHitboxClick = (e) => {
-  if (!hitboxEl) return;
-  const rect = hitboxEl.getBoundingClientRect();
-  const localX = e.clientX - rect.left;
-  if (localX < 0 || localX > rect.width) return;
+    if (!hitboxEl) return;
+    const rect = hitboxEl.getBoundingClientRect();
+    const localX = e.clientX - rect.left;
+    if (localX < 0 || localX > rect.width) return;
 
-  const pivotX = rect.width / 2;
-  const distanceFromPivot = localX - pivotX;
-  const weight = randomWeight();
+    const pivotX = rect.width / 2;
+    const distanceFromPivot = localX - pivotX;
+    const weight = randomWeight();
 
-  const object = {
-    id: crypto.randomUUID
-      ? crypto.randomUUID()
-      : String(Date.now() + Math.random()),
-    weight,
-    x: localX,
-    distanceFromPivot,
-  };
+    const object = {
+        id: crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now() + Math.random()),
+        weight,
+        x: localX,
+        distanceFromPivot,
+    };
 
 
     addObjectToState(object);
@@ -169,17 +199,14 @@ const handleHitboxClick = (e) => {
 
 function resetSeesawUI() {
 
-    document.querySelectorAll('.object').forEach(el => el.parentNode.removeChild(el));
-
+    document.querySelectorAll('.object').forEach(el => el.remove());
 
     if (seesawEl) seesawEl.style.transform = 'translateX(-50%) rotate(0deg)';
-    if (leftWeightCardEl) leftWeightCardEl.textContent = '0';
-    if (rightWeightCardEl) rightWeightCardEl.textContent = '0';
-    if (leftTorqueCardEl) leftTorqueCardEl.textContent = '0';
-    if (rightTorqueCardEl) rightTorqueCardEl.textContent = '0';
-    if (leftCountCardEl) leftCountCardEl.textContent = '0';
-    if (rightCountCardEl) rightCountCardEl.textContent = '0';
-    if (angleCardEl) angleCardEl.textContent = '0°';
+
+
+    const cardsToReset = [leftWeightCardEl, rightWeightCardEl, leftTorqueCardEl, rightTorqueCardEl, leftCountCardEl, rightCountCardEl, angleCardEl];
+    cardsToReset.forEach(el => { if (el) el.textContent = el === angleCardEl ? '0°' : '0'; });
+
     if (logEl) logEl.innerHTML = '';
 }
 
