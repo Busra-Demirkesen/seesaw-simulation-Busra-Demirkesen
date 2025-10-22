@@ -1,0 +1,157 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background: linear-gradient(to top, var(--color-background-gradient-end), var(--color-background-gradient-start));
+    font-family: var(--font-family-base); 
+    min-height: 100vh;
+}
+
+
+.wrapper {
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+  
+}
+
+
+.stage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+
+.log-title {
+    margin: 20px 0 4px;
+    font-size: 14px;
+    color: var(--color-text-medium);
+}
+
+.event-log {
+    width: 400px;
+    max-height: 180px;
+    overflow: auto;
+    background-color: var(--color-background-white);
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 6px 14px var(--color-shadow-light);
+}
+
+.controls-bar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+
+@keyframes drop-and-settle {
+    0% {
+        transform: translate(-50%, -200px);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    70% {
+        transform: translate(-50%, 0);
+        animation-timing-function: ease-out;
+    }
+    85% {
+        transform: translate(-50%, -10px);
+        animation-timing-function: ease-in-out;
+    }
+    100% {
+        transform: translate(-50%, 0);
+        animation-timing-function: ease-in;
+    }
+}
+
+.object.dropping {
+    animation: drop-and-settle 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+@media (max-width: 768px) {
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 20px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
+        max-width: 400px;
+    }
+
+    .card {
+        height: auto;
+        padding: 12px 14px;
+    }
+
+    .card-title {
+        font-size: 12px;
+    }
+
+    .card-value {
+        font-size: 20px;
+    }
+
+    .card-sub {
+        font-size: 11px;
+    }
+
+    .seesaw-wrapper {
+        width: 300px;
+        height: 100px;
+    }
+
+    .pivot {
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 25px solid var(--color-pivot);
+    }
+
+    .log-title {
+        margin: 15px auto 4px;
+        text-align: center;
+        max-width: 300px;
+    }
+
+    .event-log {
+        width: 100%;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 150px;
+    }
+
+    .tick-label {
+        bottom: -15px;
+        font-size: 9px;
+    }
+
+    .log-item {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .controls-bar {
+        margin-top: 30px;
+        padding-bottom: 20px;
+    }
+
+    #reset-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

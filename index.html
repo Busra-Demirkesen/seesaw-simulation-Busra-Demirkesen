@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css"/>
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seesaw Simulation</title> 
+    <link rel="stylesheet" href="./assets/styles/variables.css">
+    <link rel="stylesheet" href="./assets/styles/components.css">
+    <link rel="stylesheet" href="./assets/styles/styles.css">
+
 </head>
 <body>
+    <div class="wrapper">
+        
+        <div class="stats">
+            <div class="card">
+                <div class="card-title">Angle</div>
+                <div class="card-value"><span id="angleCard">0°</span></div>
+                <div class="card-sub">Range: -30° to +30°</div>
+            </div>
 
-  <div class="stats">
-  <div class="card">
-    <div class="card-title">Left</div>
-    <div class="card-value"><span id="left-weight-card">0</span> kg</div>
-    <div class="card-sub">Torque: <span id="left-torque-card">0</span></div>
-    <div class="card-sub">Objects: <span id="left-count-card">0</span></div>
-  </div>
+            <div class="card">
+                <div class="card-title">Left Side (Weight: <span id="leftWeight">0</span>kg)</div>
+                <div class="card-value"><span id="leftTorque">0</span> Nm</div>
+                <div class="card-sub">Objects: <span id="leftObjectCount">0</span></div>
+            </div>
 
-  <div class="card center">
-    <div class="card-title">Angle</div>
-    <div class="card-value"><span id="angle-card">0</span>°</div>
-    <div class="card-sub">Range: -30° ~ +30°</div>
-  </div>
+            <div class="card">
+                <div class="card-title">Right Side (Weight: <span id="rightWeight">0</span>kg)</div>
+                <div class="card-value"><span id="rightTorque">0</span> Nm</div>
+                <div class="card-sub">Objects: <span id="rightObjectCount">0</span></div>
+            </div>
+        </div>
+        
+        <div class="stage">
+            <div class="seesaw-wrapper">
+                <div class="seesaw-hitbox" id="seesawHitbox"></div>
+                <div class="pivot"></div>
+                <div class="seesaw" id="seesaw">
+                    <div class="scale"></div>
+                    </div>
+            </div>
+        </div>
 
-  <div class="card">
-    <div class="card-title">Right</div>
-    <div class="card-value"><span id="right-weight-card">0</span> kg</div>
-    <div class="card-sub">Torque: <span id="right-torque-card">0</span></div>
-    <div class="card-sub">Objects: <span id="right-count-card">0</span></div>
-  </div>
-</div>
+        <div>
+            <div class="log-title">Drops History</div>
+            <div class="event-log" id="eventLog">
+                </div>
+        </div>
 
-<div class="stage">
-  <div class="seesaw-wrapper">
-    <div class="pivot"></div>
-    <div class="seesaw">
-      <div class="scale" id="scale"></div>     
+        <div class="controls-bar">
+            <button id="resetBtn">Reset Simulation</button>
+        </div>
+
     </div>
-     <div class="seesaw-hitbox" aria-hidden="true"></div>
-  </div>
-</div>
 
+    <script type="module" src="./main.js"></script>
 
-
-
-<h3 class="log-title">Drops</h3>
-<div class="event-log" id="event-log"></div>
-
-
-  <div class="controls-bar">
-    <button id="reset-btn">Reset</button>
-  </div>
-
-  
-
-  <script defer src="app.js"></script>
 </body>
 </html>
