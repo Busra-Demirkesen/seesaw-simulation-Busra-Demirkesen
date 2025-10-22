@@ -1,23 +1,22 @@
 # ⚖️ Tahterevalli Simülasyonu — *Saf JavaScript ile Fizik Uygulaması*
 
-> 🎯 **HTML, CSS ve Vanilla JavaScript** kullanarak geliştirilmiş etkileşimli bir tahterevalli simülasyonu.  
-> Kullanıcı, tahterevallinin üzerine tıklayarak rastgele ağırlıklarda (1–10 kg) nesneler bırakabilir.  
+> 🎯 **HTML, CSS ve Vanilla JavaScript** kullanarak geliştirilmiş etkileşimli bir tahterevalli simülasyonu.
+> Kullanıcı, tahterevallinin üzerine tıklayarak rastgele ağırlıklarda (1–10 kg) nesneler bırakabilir.
 > Tahterevalli, bu nesnelerin tork etkisine göre **gerçekçi bir şekilde eğilir ve dengelenir.**
 
 ---
 
 ## 🌐 Canlı Demo
 
-🔗 **GitHub Pages:** [https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/](https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/)  
+🔗 **GitHub Pages:** [https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/](https://busra-demirkesen.github.io/seesaw-simulation-Busra-Demirkesen/)
 📦 **Repository:** [Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen](https://github.com/Busra-Demirkesen/seesaw-simulation-Busra-Demirkesen)
 
 ---
 
 ## 🧩 Proje Özeti
 
-Bu proje, **yalnızca HTML, CSS ve saf JavaScript** kullanarak fiziksel denge prensibini görselleştirmeyi amaçlar.  
-Her tıklamada yeni bir nesne oluşturulur, tork hesaplanır, tahterevalli eğim açısını günceller  
-ve animasyonlu olarak yeni konumuna geçer.
+Bu proje, **yalnızca HTML, CSS ve saf JavaScript** kullanarak fiziksel denge prensibini görselleştirmeyi amaçlar.
+Her tıklamada yeni bir nesne oluşturulur, tork hesaplanır, tahterevalli eğim açısını günceller ve animasyonlu olarak yeni konumuna geçer.
 
 ---
 
@@ -34,14 +33,14 @@ ve animasyonlu olarak yeni konumuna geçer.
 
 ## 🚀 Özellikler
 
-✅ Rastgele (1–10 kg) ağırlıkta nesne oluşturma  
-✅ Gerçek zamanlı **tork ve açı** hesaplaması  
-✅ Akıcı, fizik temelli **dönme animasyonu**  
-✅ Sol / sağ tarafın toplam ağırlık, tork ve nesne sayısının canlı güncellenmesi  
-✅ **LocalStorage** ile kalıcı veri saklama  
-✅ Reset butonu ile sıfırlama  
-✅ Responsive (mobil uyumlu) tasarım  
-✅ Düşme sesi efekti 🎧  
+* ✅ Rastgele (1–10 kg) ağırlıkta nesne oluşturma
+* ✅ Gerçek zamanlı **tork ve açı** hesaplaması
+* ✅ Akıcı, fizik temelli **dönme animasyonu**
+* ✅ Sol / sağ tarafın toplam ağırlık, tork ve nesne sayısının canlı güncellenmesi
+* ✅ **LocalStorage** ile kalıcı veri saklama
+* ✅ Reset butonu ile sıfırlama
+* ✅ Responsive (mobil uyumlu) tasarım
+* ✅ Düşme sesi efekti 🎧
 
 ---
 
@@ -58,16 +57,16 @@ const raw = (rightTorque - leftTorque) / 10;
 const angle = Math.max(-30, Math.min(30, raw));
 \`\`\`
 
-🔹 Sol tarafa nesne eklendikçe sol tork artar.  
-🔹 Sağ tarafa nesne eklendikçe sağ tork artar.  
-🔹 Tork farkına göre tahterevalli ±30° aralığında eğilir.
+* 🔹 Sol tarafa nesne eklendikçe sol tork artar.
+* 🔹 Sağ tarafa nesne eklendikçe sağ tork artar.
+* 🔹 Tork farkına göre tahterevalli ±30° aralığında eğilir.
 
 ---
 
 ## 🖱️ Tıklama Mantığı ve Hitbox Çözümü
 
-Tahterevalli döndükçe tıklama alanı da dönüyordu, bu da nesnelerin **tam tıklanan noktanın biraz soluna düşmesine** neden oluyordu.  
-Bu problemi çözmek için tahterevallinin üstüne **sabit kalan şeffaf bir** \`.seesaw-hitbox\` **katmanı** eklendi.  
+Tahterevalli döndükçe tıklama alanı da dönüyordu, bu da nesnelerin **tam tıklanan noktanın biraz soluna düşmesine** neden oluyordu.
+Bu problemi çözmek için tahterevallinin üstüne **sabit kalan şeffaf bir** \`.seesaw-hitbox\` **katmanı** eklendi.
 Tıklama artık bu sabit alan üzerinden yakalanıyor. 🎯
 
 ### 💡 Çözüm Kodu
@@ -91,14 +90,14 @@ addObject({ x: xOnSeesaw, distanceFromPivot });
 
 ### 🎯 Sonuç
 
-Artık nesneler **her zaman tıklanan noktaya tam olarak düşüyor**,  
+Artık nesneler **her zaman tıklanan noktaya tam olarak düşüyor**,
 tahterevallinin açısı ne olursa olsun **konum sapması tamamen giderildi.** ✅
 
 ---
 
 ## 🚀 Kurulum ve Kullanım
 
-Bu proje saf web teknolojileriyle yazıldığı için ek kurulum gerekmez.  
+Bu proje saf web teknolojileriyle yazıldığı için ek kurulum gerekmez.
 Sadece dosyayı indirip tarayıcıda açman yeterlidir.
 
 ### 📥 Klonlama
@@ -114,7 +113,6 @@ cd seesaw-simulation-Busra-Demirkesen
 
 ---
 
-
 ## 🧱 Klasör Yapısı
 
 \`\`\`
@@ -129,13 +127,11 @@ cd seesaw-simulation-Busra-Demirkesen
 
 ---
 
-
 ## 👩‍💻 Geliştirici
 
-**Büşra Demirkesen**  
-📅 *2025*  
-🔗 [GitHub Profilim](https://github.com/Busra-Demirkesen)  
+**Büşra Demirkesen**
+📅 *2025*
+🔗 [GitHub Profilim](https://github.com/Busra-Demirkesen)
 📧 *İletişim:* busrademirkesen2@gmail.com
 
 > ✨ “Basit bir fizik deneyi, doğru uygulanınca etkileşimli bir deneyime dönüşebilir.” — *Büşra Demirkesen*
-`;
