@@ -1,7 +1,7 @@
 import { objects } from './state.js';
 import { applyAngle } from './ui.js';
+import { clamp } from './utils.js';
 
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
 export function computeTorques() {
   if (!objects?.length) return { leftTorque: 0, rightTorque: 0 };

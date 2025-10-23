@@ -1,14 +1,14 @@
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
 import { updateStatsUI, createObjectElement, addLogEntry, createLogItemElement } from './ui.js';
+import { sideFromDistance } from './utils.js';
+
 
 export let objects = [];
 export let dropLogs = [];
 const LOG_LIMIT = 50;
 const STORAGE_KEY = 'seesaw_stage_v1';
 
-function sideFromDistance(distanceFromPivot) {
-  return distanceFromPivot < 0 ? 'left' : 'right';
-}
+
 
 export function saveState() {
   const data = { objects, dropLogs };

@@ -1,6 +1,7 @@
 import { objects, addObjectToState, resetState } from './state.js';
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
-
+import {  sizeForWeight } from './utils.js';
+import { colorForWeight } from './utils.js';
 
 const dropSoundSrc = './assets/sound/drop.mp3';
 let dropAudio = null;
@@ -29,14 +30,10 @@ const hitboxEl = document.getElementById('seesaw-hitbox');
 const logEl = document.getElementById('event-log');
 const resetBtn = document.getElementById('reset-btn');
 
-const randomWeight = () => Math.floor(Math.random() * 10) + 1;
 
-export const sizeForWeight = (w) => 8 + w * 3;
 
-export const colorForWeight = (w) => {
-  const hue = 120 - (w - 1) * (120 / 9);
-  return `hsl(${hue}, 70% ,45%)`;
-};
+
+
 
 export const playDropSound = () => {
   if (!dropAudio) {
