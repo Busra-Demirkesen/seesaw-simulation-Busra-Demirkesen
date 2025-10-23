@@ -41,15 +41,16 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  overflow: visible;             
+  overflow: visible;
 }
+
 .seesaw-hitbox {
   position: absolute;
   left: 50%;
-  top: calc(100% - 30px - 6px);   
-  width: 404px;                   
-  height: 216px;                  
-  transform: translate(-50%, -50%); 
+  top: calc(100% - 30px - 6px);
+  width: 404px;
+  height: 216px;
+  transform: translate(-50%, -50%);
   z-index: 3;
   background: transparent;
   pointer-events: auto;
@@ -75,7 +76,7 @@
   left: 50%;
   bottom: 30px;
   transform: translateX(-50%);
-  transform-origin: center;       
+  transform-origin: center;
   transition: transform 0.6s ease;
   background-color: var(--color-seesaw);
   border-radius: 6px;

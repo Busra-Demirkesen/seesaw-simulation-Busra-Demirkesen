@@ -1,6 +1,6 @@
 import { objects, addObjectToState, resetState } from './state.js';
 import { computeTorques, computeAngle, updatePhysics } from './core.js';
-import {  sizeForWeight } from './utils.js';
+import { sizeForWeight } from './utils.js';
 import { colorForWeight } from './utils.js';
 
 const dropSoundSrc = './assets/sound/drop.mp3';
@@ -159,12 +159,12 @@ function handleHitboxClick(e) {
   const clickX = e.clientX;
   const clickY = e.clientY;
 
-  
+
   const rect = seesawEl.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
-  const barLength = seesawEl.offsetWidth;   
-  const barThickness = seesawEl.offsetHeight; 
+  const barLength = seesawEl.offsetWidth;
+  const barThickness = seesawEl.offsetHeight;
 
 
   const { leftTorque, rightTorque } = computeTorques();
@@ -178,19 +178,19 @@ function handleHitboxClick(e) {
   const sinT = Math.sin(theta);
 
 
-  const xLocal =  vx * cosT + vy * sinT;
+  const xLocal = vx * cosT + vy * sinT;
   const yLocal = -vx * sinT + vy * cosT;
 
-  
+
   const halfLen = barLength / 2;
   const halfThk = barThickness / 2;
-  const PAD = 4; 
+  const PAD = 4;
 
-  const insideLength  = Math.abs(xLocal) <= (halfLen + PAD);
+  const insideLength = Math.abs(xLocal) <= (halfLen + PAD);
   const insideThickness = Math.abs(yLocal) <= (halfThk + PAD);
 
   if (!(insideLength && insideThickness)) {
-    
+
     return;
   }
 

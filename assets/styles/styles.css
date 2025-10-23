@@ -28,7 +28,7 @@ body {
 }
 
 .log-title {
-  margin: 20px 0 4px;
+  margin: 40px 0 4px;
   font-size: 14px;
   color: var(--color-text-medium);
 }
@@ -120,7 +120,7 @@ body {
   }
 
   .log-title {
-    margin: 15px auto 4px;
+    margin: 25px auto 8px;
     text-align: center;
     max-width: 300px;
   }
